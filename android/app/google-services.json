@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "851879800585",
+    "firebase_url": "https://shmirot-2ea1e.firebaseio.com",
+    "project_id": "shmirot-2ea1e",
+    "storage_bucket": "shmirot-2ea1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851879800585:android:4d73d49c441f735fdd2dd8",
+        "android_client_info": {
+          "package_name": "com.shmirot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851879800585-pshe5gvggknjgbm5galedn7bv19915qu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCKnWpazwFZPNCkOPJyxj-xgI3y5It9ls"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851879800585-pshe5gvggknjgbm5galedn7bv19915qu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
