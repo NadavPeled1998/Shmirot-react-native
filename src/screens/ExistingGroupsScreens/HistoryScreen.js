@@ -30,19 +30,19 @@ function HistoryScreen({ navigation, store }) {
     function navigateLists(didMount, num) {
         const { groups, group } = store
         const { method, date, members, minutes, hours, days, postGuards } = groups[group]
-        setMethod(method[didMount ? method.length-1 : index+num])
-        setDate(date[didMount ? date.length-1 : index+num])
-        setMembers(members[didMount ? members.length-1 : index+num])
-        setMinutes(minutes[didMount ? minutes.length-1 : index+num])
-        setHours(hours[index+num])
+        setMethod(method[didMount ? method.length - 1 : index + num])
+        setDate(date[didMount ? date.length - 1 : index + num])
+        setMembers(members[didMount ? members.length - 1 : index + num])
+        setMinutes(minutes[didMount ? minutes.length - 1 : index + num])
+        setHours(hours[didMount ? hours.length - 1 : index + num])
         if (days) {
             const diff = members.length - days.length
-            setDays(days[didMount ? days.length-1 : index + num - diff] 
-                ? days[didMount ? days.length-1 
-                : index + num - diff] : []
+            setDays(days[didMount ? days.length - 1 : index + num - diff]
+                ? days[didMount ? days.length - 1
+                    : index + num - diff] : []
             )
-            setPostGuards(postGuards[didMount ? postGuards.length-1 : index + num - diff] 
-                ? postGuards[didMount ? postGuards.length-1 : index + num - diff] 
+            setPostGuards(postGuards[didMount ? postGuards.length - 1 : index + num - diff]
+                ? postGuards[didMount ? postGuards.length - 1 : index + num - diff]
                 : []
             )
         }
@@ -50,9 +50,8 @@ function HistoryScreen({ navigation, store }) {
     }
 
     async function sendWhatsappMessage() {
-        const { guardPosts, group, groups } = store
-        const rounds = group ? groups[group].minutes.length : 1
-        const message = writeWhatsappMessage({ method, members, guardPosts, memberPostGuard, rounds, days, hours, minutes })
+        const rounds = index
+        const message = writeWhatsappMessage({ date, method, members, guardPosts: postGuards, memberPostGuard: postGuards, rounds, days, hours, minutes })
         const supported = await Linking.canOpenURL('whatsapp://send');
         if (supported) await Linking.openURL(`whatsapp://send?text=${message}`)
     }
@@ -132,12 +131,12 @@ function HistoryScreen({ navigation, store }) {
                         }
                     </View>
                 </View>
-                <ResultList 
-                    members={members} 
-                    guardPosts={postGuards} 
-                    memberPostGuard={postGuards} 
-                    days={days} 
-                    hours={hours} 
+                <ResultList
+                    members={members}
+                    guardPosts={postGuards}
+                    memberPostGuard={postGuards}
+                    days={days}
+                    hours={hours}
                     minutes={minutes}
                 />
                 <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('CreateListScreen/MembersNameScreen')}>

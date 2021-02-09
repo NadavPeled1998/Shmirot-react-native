@@ -18,6 +18,14 @@ function MembersNameScreen({ navigation, store }) {
         setRule('')
     }
 
+    function checkMembers(newMembers) {
+        const realMembers = newMembers.filter(member => member)
+        const noDuplicates = [...new Set(realMembers)].length === realMembers.length
+        if (!noDuplicates) {
+            setRule('אסור שיהיו כמה חיילים עם אותו שם')
+        }
+    }
+
     function submitEditingHandler() {
         let newMembers = members.slice()
         let makeMore = true
@@ -29,6 +37,7 @@ function MembersNameScreen({ navigation, store }) {
             }
         }
         if (makeMore) newMembers.push(enteredName)
+        checkMembers(newMembers)
         setMembers(newMembers)
     }
 
@@ -36,6 +45,7 @@ function MembersNameScreen({ navigation, store }) {
         setRule('')
         let newMembers = members.slice()
         newMembers[index] = inputText
+        checkMembers(newMembers)
         setMembers(newMembers)
     }
 
@@ -52,12 +62,18 @@ function MembersNameScreen({ navigation, store }) {
         members.map(member => {
             if (member != '') newMembers.push(member)
         })
-        if (newMembers.length > 1) {
+        const noDuplicates = [...new Set(newMembers)].length === newMembers.length
+        if (!noDuplicates) {
+            setRule('אסור שיהיו כמה חיילים עם אותו שם')
+        }
+        else if (newMembers.length < 2) {
+            setRule('צריך לפחות שני חיילים בשביל ליצור רשימת שמירה')
+        }
+        else {
             setMembers(newMembers)
             store.setMembers(newMembers)
             navigation.navigate('CreateListScreen/NumGuardPostsScreen')
         }
-        else setRule('צריך לפחות שני חיילים בשביל ליצור רשימת שמירה')
     }
 
     useEffect(() => {
@@ -78,9 +94,9 @@ function MembersNameScreen({ navigation, store }) {
                     onSubmitEditing={() => { setEnteredName(""), submitEditingHandler(enteredName) }}
                     value={enteredName} />
                 <Text style={styles.rule}>{rule}</Text>
-                <NamesList data={members} changeTexInputHandler={changeTexInputHandler}/>
+                <NamesList data={members} changeTexInputHandler={changeTexInputHandler} />
             </View>
-            <View style={{ flex: 0.2 }}/>
+            <View style={{ flex: 0.2 }} />
             <Bottom
                 back={() => !(store.group)
                     ? navigation.navigate('NewGroupScreen')
